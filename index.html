@@ -1,0 +1,913 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#160303">
+<title>DIGIFIESTA 2026 | Official Results</title>
+
+<style>
+:root {
+  --bg:#100303;
+  --panel:#210707;
+  --line:#8f1d16;
+  --gold:#ffb52e;
+  --orange:#ff5a1f;
+  --red:#f52222;
+  --white:#fff8f3;
+  --muted:#e7b8ad;
+}
+
+* { box-sizing:border-box; }
+
+html { scroll-behavior:smooth; }
+
+body {
+  margin:0;
+  background:
+    radial-gradient(ellipse at 0% 0%, #79120d 0%, transparent 42%),
+    radial-gradient(ellipse at 100% 5%, #762508 0%, transparent 35%),
+    linear-gradient(180deg,#190303,#080101 85%);
+  color:var(--white);
+  font-family:Arial,sans-serif;
+  line-height:1.6;
+  min-height:100vh;
+}
+
+.hidden { display:none !important; }
+
+header {
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:rgba(17,2,2,.97);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid #a52a18;
+  padding:15px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.brand {
+  font-size:21px;
+  font-weight:900;
+  color:#ff6b2b;
+  letter-spacing:1.5px;
+  line-height:1.3;
+}
+
+.brand small {
+  display:block;
+  font-size:10px;
+  letter-spacing:2px;
+  color:#ffbd8a;
+  margin-top:4px;
+}
+
+nav {
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+button {
+  cursor:pointer;
+  font:inherit;
+  transition:transform .2s, background .2s, box-shadow .2s;
+}
+
+button:hover { transform:translateY(-2px); }
+
+nav button,.secondary {
+  background:#310b08;
+  color:#ffb15c;
+  border:1px solid #a52a18;
+  border-radius:22px;
+  padding:9px 14px;
+}
+
+nav button.active,
+nav button:hover {
+  background:linear-gradient(100deg,#c51e12,#ff641f);
+  color:white;
+  box-shadow:0 0 15px #ff4b242b;
+}
+
+main {
+  max-width:1150px;
+  margin:auto;
+  padding:20px;
+}
+
+.page { display:none; }
+.page.active { display:block; }
+
+.hero {
+  position:relative;
+  text-align:center;
+  padding:85px 10px 65px;
+  overflow:hidden;
+}
+
+.eyebrow {
+  color:#ffb52e;
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:3px;
+}
+
+h1 {
+  font-size:clamp(48px,10vw,100px);
+  line-height:1.02;
+  margin:20px 0;
+  background:linear-gradient(100deg,#fff0a6,#ff9b20,#ff321c);
+  color:transparent;
+  background-clip:text;
+  -webkit-background-clip:text;
+  filter:drop-shadow(0 0 24px #ff4a2035);
+}
+
+h2 {
+  color:#ff8a36;
+  font-size:clamp(27px,5vw,40px);
+  margin:8px 0;
+}
+
+h3 {
+  color:#ff9b43;
+  margin:6px 0;
+}
+
+p { color:#e8cbc2; }
+
+.btn {
+  background:linear-gradient(100deg,#ff351f,#ff751f,#ffb52e);
+  color:#210401;
+  border:0;
+  border-radius:25px;
+  padding:13px 22px;
+  font-weight:800;
+  box-shadow:0 0 20px #ff4c192b;
+}
+
+.btn:hover {
+  box-shadow:0 0 26px #ff4c1970;
+}
+
+.section-title {
+  text-align:center;
+  margin:38px 0;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:17px;
+}
+
+.card {
+  background:linear-gradient(145deg,#3a0b08,#180303);
+  border:1px solid #842016;
+  border-radius:16px;
+  padding:22px;
+  margin-bottom:16px;
+  box-shadow:0 8px 24px #00000024;
+}
+
+.card p { margin-bottom:0; }
+
+.tag {
+  font-size:11px;
+  color:#ffbd38;
+  letter-spacing:1.5px;
+  font-weight:bold;
+}
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:12px;
+  margin:20px 0;
+}
+
+.stat {
+  text-align:center;
+  background:linear-gradient(145deg,#350b07,#190303);
+  border:1px solid #842016;
+  border-radius:13px;
+  padding:18px;
+}
+
+.stat strong {
+  display:block;
+  color:#ff9b2f;
+  font-size:29px;
+}
+
+.winner {
+  display:flex;
+  align-items:center;
+  gap:13px;
+  background:linear-gradient(100deg,#260706,#170303);
+  border:1px solid #632018;
+  border-left:4px solid #ff5a1f;
+  border-radius:12px;
+  padding:14px;
+  margin:10px 0;
+}
+
+.medal {
+  font-size:26px;
+  min-width:38px;
+  text-align:center;
+}
+
+.winner strong { display:block; }
+
+.detail {
+  color:var(--muted);
+  font-size:12px;
+}
+
+.points {
+  margin-left:auto;
+  color:#ffbd38;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+.field {
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  margin:12px 0;
+}
+
+label {
+  font-size:13px;
+  color:#ffd4bd;
+}
+
+input,select {
+  width:100%;
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #a52a18;
+  background:#120303;
+  color:white;
+  outline:none;
+}
+
+input:focus,select:focus {
+  border-color:#ff8a36;
+  box-shadow:0 0 0 2px #ff5a1f26;
+}
+
+.form-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+}
+
+.actions {
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+table {
+  border-collapse:collapse;
+  width:100%;
+  min-width:650px;
+}
+
+th,td {
+  text-align:left;
+  padding:11px;
+  border-bottom:1px solid #632018;
+  font-size:13px;
+}
+
+th {
+  color:#ffb52e;
+  background:#230605;
+}
+
+.table-wrap {
+  overflow:auto;
+  border-radius:8px;
+}
+
+.textbtn {
+  background:none;
+  border:0;
+  color:#ffb078;
+  text-decoration:underline;
+  padding:4px;
+}
+
+.notice {
+  background:#351009;
+  border:1px solid #d45124;
+  border-radius:10px;
+  padding:13px;
+  color:#ffd2a0;
+  font-size:13px;
+  margin-bottom:18px;
+}
+
+.error {
+  color:#ff8d7c;
+  font-size:13px;
+}
+
+footer {
+  text-align:center;
+  padding:28px 15px;
+  color:#e7b8ad;
+  border-top:1px solid #842016;
+  margin-top:35px;
+  font-size:12px;
+}
+
+@media(max-width:600px) {
+  header { align-items:flex-start; }
+  nav { width:100%; }
+  nav button { font-size:12px; padding:8px 10px; }
+  .hero { padding:55px 0; }
+  .form-grid { grid-template-columns:1fr; }
+  .points { font-size:12px; }
+  main { padding:14px; }
+  .card { padding:17px; }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">
+    DIGIFIESTA '26
+    <small>MVJ DEGREE COLLEGE · IT CLUB</small>
+  </div>
+  <nav>
+    <button class="active" data-page="home" onclick="showPage('home')">Home</button>
+    <button data-page="day1" onclick="showPage('day1')">Day 1</button>
+    <button data-page="day2" onclick="showPage('day2')">Day 2</button>
+    <button data-page="results" onclick="showPage('results')">View Results</button>
+    <button data-page="admin" onclick="showPage('admin')">Admin Login</button>
+  </nav>
+</header>
+
+<main>
+
+<section id="home" class="page active">
+  <div class="hero">
+    <div class="eyebrow">MVJ DEGREE COLLEGE · IT CLUB PRESENTS</div>
+    <h1>DIGIFIESTA<br>2026</h1>
+    <p>Celebrating creativity, technology, teamwork and the brilliant minds behind every challenge.</p>
+    <p><strong style="color:#ffb52e">15–16 OCTOBER 2026</strong></p>
+    <button class="btn" onclick="showPage('results')">VIEW WINNERS ↓</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><strong>7</strong>Events & Challenges</div>
+    <div class="stat"><strong>2</strong>Festival Days</div>
+    <div class="stat"><strong id="winnerCount">12</strong>Winner Placements</div>
+  </div>
+
+  <div class="section-title">
+    <h2>THINK FAST. CREATE BOLDLY.</h2>
+    <p>Compete Fearlessly.</p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <span class="tag">OCTOBER 15</span>
+      <h3>Day 1 · Individual & Team Events</h3>
+      <p>Webcraft Challenge, Construct2Conquer, Jigsaw Jam and Logo Rang.</p>
+      <br>
+      <button class="secondary" onclick="showPage('day1')">VIEW DAY 1</button>
+    </div>
+
+    <div class="card">
+      <span class="tag">OCTOBER 16</span>
+      <h3>Day 2 · Team Tournament</h3>
+      <p>Prompt Battle, Meme Battle and Password Challenge.</p>
+      <br>
+      <button class="secondary" onclick="showPage('day2')">VIEW DAY 2</button>
+    </div>
+  </div>
+</section>
+
+<section id="day1" class="page">
+  <div class="section-title">
+    <div class="eyebrow">OCTOBER 15, 2026</div>
+    <h2>DAY 1 WINNERS</h2>
+    <p>Celebrating the best performances in each event.</p>
+  </div>
+  <div id="day1List"></div>
+</section>
+
+<section id="day2" class="page">
+  <div class="section-title">
+    <div class="eyebrow">OCTOBER 16, 2026</div>
+    <h2>DAY 2 WINNERS</h2>
+    <p>Overall team tournament results.</p>
+  </div>
+
+  <div id="day2List"></div>
+
+  <div class="grid">
+    <div class="card">
+      <span class="tag">CHALLENGE 01</span>
+      <h3>PROMPT BATTLE</h3>
+      <p>Generate images from themes and transform a picture into a movie poster.</p>
+    </div>
+    <div class="card">
+      <span class="tag">CHALLENGE 02</span>
+      <h3>MEME BATTLE</h3>
+      <p>Create original, clever and appropriate memes from themes and pictures.</p>
+    </div>
+    <div class="card">
+      <span class="tag">CHALLENGE 03</span>
+      <h3>PASSWORD CHALLENGE</h3>
+      <p>Solve a dataset-based password challenge and a family-tree logic puzzle.</p>
+    </div>
+  </div>
+</section>
+
+<section id="results" class="page">
+  <div class="section-title">
+    <div class="eyebrow">THE RESULTS ARE IN</div>
+    <h2>WINNERS & SCOREBOARD</h2>
+    <p>Official placements for DIGIFIESTA 2026.</p>
+  </div>
+  <div class="notice">
+    Results are prefilled from the organiser's list. Scores can be entered through Admin Login.
+  </div>
+  <div id="allResults"></div>
+</section>
+
+<section id="admin" class="page">
+  <div class="section-title">
+    <div class="eyebrow">ORGANISED BY THE IT CLUB</div>
+    <h2>ADMIN PANEL</h2>
+    <p>Manage event winners and scores.</p>
+  </div>
+
+  <div id="loginBox" class="card" style="max-width:480px;margin:25px auto">
+    <h3>Admin Login</h3>
+    <p class="detail">Sign in to add, edit or delete results.</p>
+
+    <form id="loginForm">
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" required autocomplete="username" placeholder="Admin email">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" required autocomplete="current-password" placeholder="Admin password">
+      </div>
+      <button class="btn" type="submit">LOGIN</button>
+      <p id="loginError" class="error" role="alert"></p>
+    </form>
+  </div>
+
+  <div id="adminTools" class="hidden">
+    <div class="notice">
+      Demo limitation: results are saved only in this browser. A shared public scoreboard requires a server and database.
+    </div>
+
+    <div class="card">
+      <h3 id="formTitle">Add a winner / score</h3>
+
+      <form id="resultForm">
+        <input id="editId" type="hidden">
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="day">Day</label>
+            <select id="day">
+              <option>Day 1</option>
+              <option>Day 2</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="event">Event</label>
+            <select id="event"></select>
+          </div>
+
+          <div class="field">
+            <label for="place">Placement</label>
+            <select id="place">
+              <option value="1">1st place</option>
+              <option value="2">2nd place</option>
+              <option value="3">3rd place</option>
+              <option value="4">Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="score">Score (optional)</label>
+            <input id="score" type="number" min="0" step="0.5" placeholder="Enter score">
+          </div>
+
+          <div class="field">
+            <label for="name">Winner / team name</label>
+            <input id="name" required maxlength="150" placeholder="Participant or team name">
+          </div>
+
+          <div class="field">
+            <label for="details">Class / details</label>
+            <input id="details" maxlength="200" placeholder="e.g. 3rd Sem BCA B">
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn" type="submit" id="saveBtn">SAVE RESULT</button>
+          <button class="secondary" type="button" onclick="clearForm()">CLEAR</button>
+          <button class="secondary" type="button" onclick="logout()">LOG OUT</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3>Manage Current Results</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Event</th>
+              <th>Place</th>
+              <th>Winner</th>
+              <th>Score</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="adminRows"></tbody>
+        </table>
+      </div>
+
+      <div class="actions">
+        <button class="secondary" onclick="exportJSON()">EXPORT RESULTS JSON</button>
+        <button class="secondary" onclick="restoreDefaults()">RESTORE DEFAULT WINNERS</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <strong style="color:#ff8a36">DIGIFIESTA 2026</strong><br>
+  MVJ Degree College · IT Club<br>
+  Think Fast. Create Boldly. Compete Fearlessly.
+</footer>
+
+<script>
+"use strict";
+
+// Updated admin credentials
+const ADMIN_EMAIL = "banupriyamani@gmail.com";
+const ADMIN_PASSWORD = "9686114125";
+
+const KEY = "digifiesta_scores_v1";
+
+const EVENTS = {
+  "Day 1": [
+    "Webcraft Challenge",
+    "Construct2Conquer",
+    "Jigsaw Jam",
+    "Logo Rang"
+  ],
+  "Day 2": [
+    "Overall Team Tournament",
+    "Prompt Battle",
+    "Meme Battle",
+    "Password Challenge"
+  ]
+};
+
+const DEFAULTS = [
+  {id:"w1",day:"Day 1",event:"Webcraft Challenge",place:1,name:"Sudharsan and Arbaz team",details:"",score:""},
+  {id:"w2",day:"Day 1",event:"Webcraft Challenge",place:2,name:"Moinuddin and Tejas",details:"",score:""},
+  {id:"j1",day:"Day 1",event:"Jigsaw Jam",place:1,name:"Rashmi S",details:"3rd Sem BCA B",score:""},
+  {id:"j2",day:"Day 1",event:"Jigsaw Jam",place:2,name:"Manasa J",details:"3rd Sem BCA A",score:""},
+  {id:"j3",day:"Day 1",event:"Jigsaw Jam",place:3,name:"Petambar",details:"5th Sem BCA B",score:""},
+  {id:"c1",day:"Day 1",event:"Construct2Conquer",place:1,name:"Nishanth and Madhumitha",details:"",score:""},
+  {id:"c2",day:"Day 1",event:"Construct2Conquer",place:2,name:"Manasa and Geetanjali",details:"",score:""},
+  {id:"l1",day:"Day 1",event:"Logo Rang",place:1,name:"Indira and team",details:"",score:""},
+  {id:"l2",day:"Day 1",event:"Logo Rang",place:2,name:"Sai Abhigna and team",details:"",score:""},
+  {id:"d21",day:"Day 2",event:"Overall Team Tournament",place:1,name:"Team 1 — Nishant and team",details:"",score:""},
+  {id:"d22",day:"Day 2",event:"Overall Team Tournament",place:2,name:"Team 6 — Chaitanya and team",details:"",score:""},
+  {id:"d23",day:"Day 2",event:"Overall Team Tournament",place:3,name:"Team 4 — Kruthika and team",details:"",score:""}
+];
+
+function cloneDefaults() {
+  return JSON.parse(JSON.stringify(DEFAULTS));
+}
+
+let results;
+
+try {
+  const stored = localStorage.getItem(KEY);
+  results = stored ? JSON.parse(stored) : cloneDefaults();
+  if (!Array.isArray(results)) results = cloneDefaults();
+} catch (error) {
+  results = cloneDefaults();
+}
+
+function safe(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#39;"
+  })[char]);
+}
+
+function medal(place) {
+  return place === 1 ? "🥇" :
+         place === 2 ? "🥈" :
+         place === 3 ? "🥉" : place;
+}
+
+function resultRow(result) {
+  const place = Number(result.place);
+  const label = place === 1 ? "1st" :
+                place === 2 ? "2nd" :
+                place === 3 ? "3rd" : "Other";
+
+  return `
+    <div class="winner">
+      <div class="medal">${medal(place)}</div>
+      <div>
+        <strong>${safe(result.name)}</strong>
+        <div class="detail">${safe(result.details || "")}</div>
+        <div class="detail">${label} Place</div>
+      </div>
+      <div class="points">${
+        result.score !== "" && result.score != null
+          ? safe(result.score) + " pts"
+          : ""
+      }</div>
+    </div>`;
+}
+
+function groupsFor(day) {
+  return EVENTS[day]
+    .map(event => ({
+      event,
+      items: results
+        .filter(result => result.day === day && result.event === event)
+        .sort((a, b) => Number(a.place) - Number(b.place))
+    }))
+    .filter(group => group.items.length);
+}
+
+function renderDay(day, elementId) {
+  const content = groupsFor(day).map(group => `
+    <div style="margin:25px 0">
+      <div class="tag">${day.toUpperCase()}</div>
+      <h3>${safe(group.event)}</h3>
+      ${group.items.map(resultRow).join("")}
+    </div>
+  `).join("");
+
+  document.getElementById(elementId).innerHTML =
+    content || '<div class="card">Results will be announced soon.</div>';
+}
+
+function render() {
+  renderDay("Day 1", "day1List");
+  renderDay("Day 2", "day2List");
+
+  document.getElementById("allResults").innerHTML =
+    ["Day 1", "Day 2"].map(day => {
+      const groups = groupsFor(day);
+
+      return `
+        <div class="card">
+          <h3>${day} Results</h3>
+          ${groups.map(group => `
+            <h3 style="font-size:16px">${safe(group.event)}</h3>
+            ${group.items.map(resultRow).join("")}
+          `).join("") || "<p>No results added yet.</p>"}
+        </div>`;
+    }).join("");
+
+  document.getElementById("winnerCount").textContent = results.length;
+  fillEvents();
+  renderAdmin();
+}
+
+function save() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(results));
+    render();
+  } catch (error) {
+    alert("Could not save results. Check your browser storage settings.");
+  }
+}
+
+function showPage(pageId) {
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.toggle("active", page.id === pageId);
+  });
+
+  document.querySelectorAll("nav button").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === pageId);
+  });
+
+  if (pageId === "admin") checkLogin();
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function fillEvents() {
+  const dayElement = document.getElementById("day");
+  const eventElement = document.getElementById("event");
+
+  if (!dayElement || !eventElement) return;
+
+  const day = dayElement.value;
+  const previousEvent = eventElement.value;
+
+  eventElement.innerHTML = EVENTS[day]
+    .map(event => `<option value="${safe(event)}">${safe(event)}</option>`)
+    .join("");
+
+  if (EVENTS[day].includes(previousEvent)) {
+    eventElement.value = previousEvent;
+  }
+}
+
+function checkLogin() {
+  const loggedIn = sessionStorage.getItem("df_admin") === "yes";
+
+  document.getElementById("loginBox").classList.toggle("hidden", loggedIn);
+  document.getElementById("adminTools").classList.toggle("hidden", !loggedIn);
+}
+
+document.getElementById("loginForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const email = document.getElementById("email").value.trim().toLowerCase();
+  const password = document.getElementById("password").value;
+  const error = document.getElementById("loginError");
+
+  if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+    sessionStorage.setItem("df_admin", "yes");
+    error.textContent = "";
+    checkLogin();
+  } else {
+    error.textContent = "Incorrect email or password. Please try again.";
+  }
+});
+
+function logout() {
+  sessionStorage.removeItem("df_admin");
+  checkLogin();
+  clearForm();
+}
+
+document.getElementById("day").addEventListener("change", fillEvents);
+
+document.getElementById("resultForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  if (sessionStorage.getItem("df_admin") !== "yes") {
+    alert("Please log in first.");
+    checkLogin();
+    return;
+  }
+
+  const id = document.getElementById("editId").value;
+
+  const result = {
+    id: id || "r" + Date.now(),
+    day: document.getElementById("day").value,
+    event: document.getElementById("event").value,
+    place: Number(document.getElementById("place").value),
+    name: document.getElementById("name").value.trim(),
+    details: document.getElementById("details").value.trim(),
+    score: document.getElementById("score").value
+  };
+
+  if (!result.name) return;
+
+  if (id) {
+    results = results.map(item => item.id === id ? result : item);
+  } else {
+    results.push(result);
+  }
+
+  save();
+  clearForm();
+  alert(id ? "Result updated." : "Result added.");
+});
+
+function clearForm() {
+  document.getElementById("resultForm").reset();
+  document.getElementById("editId").value = "";
+  document.getElementById("formTitle").textContent = "Add a winner / score";
+  document.getElementById("saveBtn").textContent = "SAVE RESULT";
+  fillEvents();
+}
+
+function renderAdmin() {
+  const rows = document.getElementById("adminRows");
+  if (!rows) return;
+
+  rows.innerHTML = results
+    .slice()
+    .sort((a, b) =>
+      a.day.localeCompare(b.day) ||
+      a.event.localeCompare(b.event) ||
+      Number(a.place) - Number(b.place)
+    )
+    .map(result => `
+      <tr>
+        <td>${safe(result.day)}</td>
+        <td>${safe(result.event)}</td>
+        <td>${safe(result.place)}</td>
+        <td>${safe(result.name)}</td>
+        <td>${result.score === "" ? "—" : safe(result.score)}</td>
+        <td>
+          <button class="textbtn" onclick="editResult('${safe(result.id)}')">Edit</button>
+          <button class="textbtn" onclick="deleteResult('${safe(result.id)}')">Delete</button>
+        </td>
+      </tr>
+    `).join("");
+}
+
+function editResult(id) {
+  if (sessionStorage.getItem("df_admin") !== "yes") return;
+
+  const result = results.find(item => item.id === id);
+  if (!result) return;
+
+  document.getElementById("editId").value = result.id;
+  document.getElementById("day").value = result.day;
+  fillEvents();
+  document.getElementById("event").value = result.event;
+  document.getElementById("place").value = String(result.place);
+  document.getElementById("name").value = result.name;
+  document.getElementById("details").value = result.details || "";
+  document.getElementById("score").value = result.score ?? "";
+  document.getElementById("formTitle").textContent = "Edit result";
+  document.getElementById("saveBtn").textContent = "UPDATE RESULT";
+
+  document.getElementById("resultForm").scrollIntoView({behavior:"smooth"});
+}
+
+function deleteResult(id) {
+  if (sessionStorage.getItem("df_admin") !== "yes") return;
+
+  if (confirm("Delete this result?")) {
+    results = results.filter(result => result.id !== id);
+    save();
+  }
+}
+
+function restoreDefaults() {
+  if (sessionStorage.getItem("df_admin") !== "yes") return;
+
+  if (confirm("Restore the original winner list? Your current edits will be removed.")) {
+    results = cloneDefaults();
+    save();
+    alert("Default winners restored.");
+  }
+}
+
+function exportJSON() {
+  if (sessionStorage.getItem("df_admin") !== "yes") return;
+
+  const blob = new Blob([JSON.stringify(results, null, 2)], {
+    type:"application/json"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "digifiesta-results.json";
+  link.click();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+render();
+checkLogin();
+</script>
+</body>
+</html>
